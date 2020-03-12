@@ -1,0 +1,72 @@
+﻿@model  DynamicPhotoGallary.Models.MainImage
+@{
+    ViewBag.Title = "Picture";
+    var mainimage = "/images/" + Model.Name;
+}
+
+<section class="banner-bottom-w3layouts py-lg-5 py-md-5 py-3">
+    <div class="p-content">
+        <div class="container product-inner catehome">
+            <div class="col-md-12">
+                <div id="content">
+                    <div class="col-md-offset-4  col-md-4 col-sm-4 full-width first-col procon" style=" ">
+
+                        <!--zoom start-->
+                        <ul id="imageGallery" style="cursor: pointer;">
+
+                            <li data-thumb="@mainimage" data-src="bala/ItemImage/1.jpg">
+                                <img src="@mainimage" width="290" class="bala/img-responsive img-auto" />
+                            </li>
+
+                            @foreach (var item in Model.SubImages)
+                            {
+                                var imagepath = "/images/" + item.Name;
+                                <li data-thumb="@imagepath" data-src="bala/ItemImage/1.jpg">
+                                <img src="@imagepath" width="290" class="bala/img-responsive img-auto" />
+                            </li>
+                            }
+
+                        </ul>
+                        <!--zoom end-->
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    #lg-download {
+        display: none;
+    }
+
+    .plholder::-webkit-input-placeholder {
+        color: red;
+    }
+</style>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('#imageGallery').lightSlider({
+            gallery: true,
+            item: 1,
+            loop: true,
+            vertical: false,
+            verticalHeight: 295,
+            vThumbWidth: 50,
+            thumbItem: 8,
+            thumbMargin: 4,
+            slideMargin: 0,
+            enableDrag: false,
+            onSliderLoad: function (el) {
+                el.lightGallery({
+                    selector: '#imageGallery .lslide'
+                });
+            }
+        });
+    });
+</script>
+
+

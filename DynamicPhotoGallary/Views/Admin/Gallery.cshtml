@@ -1,0 +1,214 @@
+﻿@model  IEnumerable<DynamicPhotoGallary.Models.MainImage>
+@{
+    ViewBag.Title = "Admin Gallery Page";
+
+    string BasePath = "/images/";
+
+    var Total = Model.Count();
+    decimal Page = 0;
+    List<DynamicPhotoGallary.Models.MainImage> One = new List<DynamicPhotoGallary.Models.MainImage>();
+    List<DynamicPhotoGallary.Models.MainImage> Two = new List<DynamicPhotoGallary.Models.MainImage>();
+    List<DynamicPhotoGallary.Models.MainImage> Three = new List<DynamicPhotoGallary.Models.MainImage>();
+    List<DynamicPhotoGallary.Models.MainImage> Four = new List<DynamicPhotoGallary.Models.MainImage>();
+    List<DynamicPhotoGallary.Models.MainImage> Five = new List<DynamicPhotoGallary.Models.MainImage>();
+    List<DynamicPhotoGallary.Models.MainImage> Six = new List<DynamicPhotoGallary.Models.MainImage>();
+    if (Total > 0)
+    {
+        Page = Total / 6;
+        Page = Math.Round(Page);
+        if (Page > 0)
+        {
+            for (int i = 0; i < Page; i++)
+            {
+                var TempList = Model.Skip(i).Take(6).ToArray();
+                if (TempList.Length > 0)
+                {
+                    One.Add(TempList[0]);
+                }
+
+                if (TempList.Length > 1)
+                {
+                    Two.Add(TempList[1]);
+                }
+
+                if (TempList.Length > 2)
+                {
+                    Three.Add(TempList[2]);
+                }
+
+                if (TempList.Length > 3)
+                {
+                    Four.Add(TempList[3]);
+                }
+
+                if (TempList.Length > 4)
+                {
+                    Five.Add(TempList[4]);
+                }
+
+                if (TempList.Length > 5)
+                {
+                    Six.Add(TempList[5]);
+                }
+            }
+        }
+        else
+        {
+            var TempList = Model.ToArray();
+            if (TempList.Length > 0)
+            {
+                One.Add(TempList[0]);
+            }
+
+            if (TempList.Length > 1)
+            {
+                Two.Add(TempList[1]);
+            }
+
+            if (TempList.Length > 2)
+            {
+                Three.Add(TempList[2]);
+            }
+
+            if (TempList.Length > 3)
+            {
+                Four.Add(TempList[3]);
+            }
+
+            if (TempList.Length > 4)
+            {
+                Five.Add(TempList[4]);
+            }
+
+            if (TempList.Length > 5)
+            {
+                Six.Add(TempList[5]);
+            }
+        }
+
+    }
+
+}
+<div class="container-fluid gallery-lightbox my-5">
+
+    @if (Model.Count() > 0)
+    {
+        <div class="row m-0">
+            @if (One.Count > 0)
+            {
+                <div class="col-lg-2 col-md-2 col-sm-3 p-0 snap-img">
+                    @foreach (var item in One)
+                    {
+                        var ImagePath = BasePath + item.Name;
+
+                        <div class="gallery_grid1 hover08" data-aos="fade-up">
+                            <div class="gallery_effect">
+                                <a href="@Url.Action("edit", "admin", new { image = item.Id })" data-lightbox1="example-set" data-title-wthree="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
+                                    <figure> <img src="@ImagePath" alt=" " class="img-fluid"> </figure>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Two.Count > 0)
+            {
+                <div class="col-lg-2 col-md-2 col-sm-3 p-0 snap-img">
+                    @foreach (var item in Two)
+                    {
+                        var ImagePath = BasePath + item.Name;
+
+                        <div class="gallery_grid1 hover08" data-aos="fade-up">
+                            <div class="gallery_effect">
+                                <a href="@Url.Action("edit", "admin", new { image = item.Id })" data-lightbox1="example-set" data-title-wthree="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
+                                    <figure> <img src="@ImagePath" alt=" " class="img-fluid"> </figure>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Three.Count > 0)
+            {
+                <div class="col-lg-2 col-md-2 col-sm-3 p-0 snap-img">
+                    @foreach (var item in Three)
+                    {
+                        var ImagePath = BasePath + item.Name;
+
+                        <div class="gallery_grid1 hover08" data-aos="fade-up">
+                            <div class="gallery_effect">
+                                <a href="@Url.Action("edit", "admin", new { image = item.Id })" data-lightbox1="example-set" data-title-wthree="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
+                                    <figure> <img src="@ImagePath" alt=" " class="img-fluid"> </figure>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Four.Count > 0)
+            {
+                <div class="col-lg-2 col-md-2 col-sm-3 p-0 snap-img">
+                    @foreach (var item in Four)
+                    {
+                        var ImagePath = BasePath + item.Name;
+
+                        <div class="gallery_grid1 hover08" data-aos="fade-up">
+                            <div class="gallery_effect">
+                                <a href="@Url.Action("edit", "admin", new { image = item.Id })" data-lightbox1="example-set" data-title-wthree="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
+                                    <figure> <img src="@ImagePath" alt=" " class="img-fluid"> </figure>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Five.Count > 0)
+            {
+                <div class="col-lg-2 col-md-2 p-0 snap-img">
+                    @foreach (var item in Five)
+                    {
+                        var ImagePath = BasePath + item.Name;
+
+                        <div class="gallery_grid1 hover08" data-aos="fade-up">
+                            <div class="gallery_effect">
+                                <a href="@Url.Action("edit", "admin", new { image = item.Id })" data-lightbox1="example-set" data-title-wthree="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
+                                    <figure> <img src="@ImagePath" alt=" " class="img-fluid"> </figure>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Six.Count > 0)
+            {
+                <div class="col-lg-2 col-md-2 p-0 snap-img">
+                    @foreach (var item in Six)
+                    {
+                        var ImagePath = BasePath + item.Name;
+
+                        <div class="gallery_grid1 hover08" data-aos="fade-up">
+                            <div class="gallery_effect">
+                                <a href="@Url.Action("edit", "admin", new { image = item.Id })" data-lightbox1="example-set" data-title-wthree="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
+                                    <figure> <img src="@ImagePath" alt=" " class="img-fluid"> </figure>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="row m-0">
+            <div class="col-12">
+                <p>No records found.</p>
+            </div>
+        </div>
+    }
+</div>

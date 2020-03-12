@@ -1,0 +1,54 @@
+﻿@model DynamicPhotoGallary.Models.MainImage
+
+@{
+    ViewBag.Title = "Gallery Edit Page";
+}
+
+
+@using (Html.BeginForm("edit","admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Image</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.Customer.Name)
+        @Html.HiddenFor(x => x.CustomerId)
+        @Html.HiddenFor(x => x.Name)
+
+        <img src="/images/@Model.Name" />
+        <br />
+        <h6>Sub Images</h6>
+        <hr />
+        @if (Model.SubImages.Count > 0)
+        {
+            foreach (var item in Model.SubImages.ToList())
+            {
+                <img src="/images/@item.Name" />
+                <br />
+            }
+        }
+
+        <div class="hide">
+            <label>Choose file</label>
+            <input type="button" class="form-control" value="Browse" id="browse" style="cursor:pointer;width:50%;" />
+            <input class="form-control" type="file" accept="image/*" name="file" placeholder="" required style="display:none;">
+            @Html.ValidationMessage("file")
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $('#browse').click(function () {
+            $('input[name="file"]').trigger('click');
+        });
+    });
+</script>

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_WebgalleryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdminName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Phoneno" Type="nvarchar" MaxLength="25" />
+    <Property Name="Attach" Type="nvarchar" MaxLength="50" />
+    <Property Name="Size" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pack" Type="nvarchar" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="MainImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MainImageId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MainImage_CustomerId">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="MainImage" Type="Self.MainImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MainImage">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MainImage_ImageId">
+    <End Role="MainImage" Type="Self.MainImage" Multiplicity="1" />
+    <End Role="SubImage" Type="Self.SubImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MainImage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SubImage">
+        <PropertyRef Name="MainImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_WebgalleryModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MainImage" EntityType="Self.MainImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubImage" EntityType="Self.SubImage" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MainImage_CustomerId" Association="Self.FK_MainImage_CustomerId">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="MainImage" EntitySet="MainImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MainImage_ImageId" Association="Self.FK_MainImage_ImageId">
+      <End Role="MainImage" EntitySet="MainImage" />
+      <End Role="SubImage" EntitySet="SubImage" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,126 @@
+USE [master]
+GO
+/****** Object:  Database [DB_Webgallery]    Script Date: 04-02-2020 11:40:08 ******/
+CREATE DATABASE [DB_Webgallery]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'DB_Webgallery', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\DB_Webgallery.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'DB_Webgallery_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\DB_Webgallery_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [DB_Webgallery] SET COMPATIBILITY_LEVEL = 140
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [DB_Webgallery].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [DB_Webgallery] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [DB_Webgallery] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [DB_Webgallery] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [DB_Webgallery] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [DB_Webgallery] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET RECOVERY FULL 
+GO
+ALTER DATABASE [DB_Webgallery] SET  MULTI_USER 
+GO
+ALTER DATABASE [DB_Webgallery] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [DB_Webgallery] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [DB_Webgallery] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [DB_Webgallery] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [DB_Webgallery] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'DB_Webgallery', N'ON'
+GO
+ALTER DATABASE [DB_Webgallery] SET QUERY_STORE = OFF
+GO
+USE [DB_Webgallery]
+GO
+/****** Object:  Table [dbo].[Admin]    Script Date: 04-02-2020 11:40:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Admin](
+	[AdminId] [int] IDENTITY(1,1) NOT NULL,
+	[AdminName] [nvarchar](50) NULL,
+	[UserName] [nvarchar](50) NULL,
+	[Password] [nchar](50) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[customer]    Script Date: 04-02-2020 11:40:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[customer](
+	[customerid] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](100) NULL,
+	[Email] [nvarchar](50) NULL,
+	[Phoneno] [nvarchar](13) NULL,
+	[attach] [nvarchar](50) NULL,
+	[size] [nvarchar](50) NULL,
+	[pack] [nvarchar](50) NULL,
+	[Message] [nvarchar](200) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[gallery]    Script Date: 04-02-2020 11:40:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[gallery](
+	[GalleryId] [int] IDENTITY(1,1) NOT NULL,
+	[ImageName] [nvarchar](50) NULL,
+	[MainImage] [nvarchar](50) NULL,
+	[SubImage] [nvarchar](100) NULL,
+	[IsActive] [char](1) NULL
+) ON [PRIMARY]
+GO
+USE [master]
+GO
+ALTER DATABASE [DB_Webgallery] SET  READ_WRITE 
+GO

@@ -1,0 +1,145 @@
+﻿@model DynamicPhotoGallary.Models.ViewModel.ContactModel
+
+@{
+    ViewBag.Title = "Contact";
+}
+<section class="banner-bottom-w3layouts pt-lg-5 pt-md-3 pt-3" style="background-color:#FFF">
+    <div class="inner-sec-w3ls pt-md-5 pt-md-3 pt-3">
+        <!---728x90--->
+
+        <h4 class="sub-tittle text-uppercase text-center">Find us</h4>
+        <h2 class="title-wthree text-center mb-lg-5 mb-3">Contact</h2>
+        <!---728x90--->
+        <div class="container">
+            <div class="address row mb-5">
+                <div class="col-lg-4 address-grid-w3ls">
+                    <div class="row address-info" data-aos="fade-up">
+                        <div class="col-md-3 address-left text-center">
+                            <i class="far fa-map"></i>
+                        </div>
+                        <div class="col-md-9 address-right text-left">
+                            <h6 class="ad-info text-uppercase mb-2">Address</h6>
+                            <p>
+                                No:38/8 Koya Aruna Giri 5th street,
+                                Royapettah,
+                                Chennai-14.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 address-grid-w3ls">
+                    <div class="row address-info" data-aos="fade-up">
+                        <div class="col-md-3 address-left text-center">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <div class="col-md-9 address-right text-left">
+                            <h6 class="ad-info text-uppercase mb-2">Email</h6>
+                            <p>
+                                Email :
+                                <a href="dreambig10.10.2000@gmail.com"> dreambig10.10.2000@gmail.com</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 address-grid-w3ls">
+                    <div class="row address-info" data-aos="fade-up">
+                        <div class="col-md-3 address-left text-center">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="col-md-9 address-right text-left">
+                            <h6 class="ad-info text-uppercase mb-2">Phone</h6>
+                            <p>+91 9551966721</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 map">
+                    <!--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.27404345275!2d-118.69191921441556!3d34.02016130939095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos+Angeles%2C+CA%2C+USA!5e0!3m2!1sen!2sin!4v1522474296007" allowfullscreen></iframe>
+                    -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1943.3480854096679!2d80.26968695140593!3d13.055001399999998!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526703903b3c87%3A0x8092b7a7df8fe059!2sdream%20big!5e0!3m2!1sen!2sin!4v1578144077263!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+                <div class="col-lg-6 main_grid_contact">
+                    <div class="form">
+                        <h4 class="mb-4 text-left">Send us a message</h4>
+                        <form action="@Url.Action("contact","home")" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="my-2">Name</label>
+                                @*<input class="form-control" type="text" name="Name" placeholder="" required>*@
+                                @Html.TextBoxFor(x => x.Name, new { @class="form-control"})
+                                @Html.ValidationMessageFor(x => x.Name)
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                @*<input class="form-control" type="email" name="Email" placeholder="" required>*@
+                                @Html.TextBoxFor(x => x.Email, new { @class="form-control" })
+                                @Html.ValidationMessageFor(x => x.Email)
+                            </div>
+                            <div class="form-group">
+                                <label>Phone no</label>
+                                @*<input class="form-control" type="tel" pattern="[0-9]{10}" name="phone number" placeholder="Enter your 10 digit phone number" required>*@
+                                @Html.TextBoxFor(x => x.PhoneNo, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.PhoneNo)
+                            </div>
+                            <div class="form-group">
+                                <div class="hide">
+                                    <label>Choose file</label>
+                                    <input type="button" class="form-control" value="Browse" id="browse" style="cursor:pointer;width:50%;" />
+                                    <input class="form-control" type="file" accept="image/*" name="file" placeholder="" required style="display:none;">
+                                    @Html.ValidationMessage("file")
+                                </div>
+                            </div>
+                            <label>Select size</label>
+                            <select class="form-control" name="Size">
+                                <option>select size</option>
+                                <option value="A4">A4</option>
+                                <option value="A3">A3</option>
+                                <option value="A3">A2</option>
+                            </select>
+                            @Html.ValidationMessageFor(x => x.Size)
+                            <div class="form-group">
+                                <label>Select your pack</label><br>
+                                @*<input class="space" type="checkbox" name="Pack" placeholder="" value="silver"> silver*@
+                                <select class="form-control" name="Pack">
+                                    <option>select pack</option>
+                                    <option value="gold">Gold</option>
+                                    <option value="diamond">Diamond</option>
+                                </select>
+                                @*<input class="space" type="checkbox" name="Pack" placeholder="" value="gold"> gold
+                                <input class="space" type="checkbox" name="Pack" placeholder="" value="dimond"> dimond*@
+                                @Html.ValidationMessageFor(x => x.Pack)
+                            </div>
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea id="textarea" name="Message" placeholder=""></textarea>
+                                @Html.ValidationMessageFor(x => x.Message)
+                            </div>
+                            <div class="input-group1">
+                                <input class="form-control" type="submit" value="Submit">
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        var pack = "@Request.QueryString["pack"]";
+        if (pack != "" && pack != null && typeof pack != NaN && typeof pack != undefined) {
+            $('select[name="Pack"]').val(pack);
+        }        
+
+        $('#browse').click(function () {
+            $('input[name="file"]').trigger('click');            
+        });
+    });
+</script>
