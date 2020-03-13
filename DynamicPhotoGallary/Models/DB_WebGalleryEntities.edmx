@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DB_WebgalleryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DB_WebgalleryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="Id" />
@@ -26,6 +26,15 @@
           <Property Name="Size" Type="nvarchar" MaxLength="50" />
           <Property Name="Pack" Type="nvarchar" MaxLength="50" />
           <Property Name="Message" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="MainImage">
           <Key>
@@ -71,6 +80,7 @@
         <EntityContainer Name="DB_WebgalleryModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MainImage" EntityType="Self.MainImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubImage" EntityType="Self.SubImage" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_MainImage_CustomerId" Association="Self.FK_MainImage_CustomerId">
@@ -154,6 +164,7 @@
             <End Role="Customer" EntitySet="Customers" />
             <End Role="MainImage" EntitySet="MainImages" />
           </AssociationSet>
+          <EntitySet Name="Feedbacks" EntityType="DB_WebgalleryModel.Feedback" />
         </EntityContainer>
         <Association Name="FK_MainImage_CustomerId">
           <End Type="DB_WebgalleryModel.Customer" Role="Customer" Multiplicity="1" />
@@ -167,6 +178,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -213,6 +233,16 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="MainImageId" ColumnName="MainImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="DB_WebgalleryModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,26 +4,60 @@
     var mainimage = "/images/" + Model.Name;
 }
 
+<style>
+    .demo {
+        /*width: 420px;*/
+    }
+
+    ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    li {
+        display: block;
+        float: left;
+        margin-right: 6px;
+        cursor: pointer;
+    }
+
+    img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }    
+</style>
+
+
 <section class="banner-bottom-w3layouts py-lg-5 py-md-5 py-3">
     <div class="p-content">
         <div class="container product-inner catehome">
+
+            <div class="col-md-12">
+                <p>                    
+                    <a class="back" href="@Url.Action("index","home")">BACK</a>
+                </p>
+            </div>
+
             <div class="col-md-12">
                 <div id="content">
-                    <div class="col-md-offset-4  col-md-4 col-sm-4 full-width first-col procon" style=" ">
-
+                    <div class="demo">
                         <!--zoom start-->
                         <ul id="imageGallery" style="cursor: pointer;">
 
-                            <li data-thumb="@mainimage" data-src="bala/ItemImage/1.jpg">
+                            <li data-thumb="@mainimage" data-src="@mainimage">
                                 <img src="@mainimage" width="290" class="bala/img-responsive img-auto" />
                             </li>
 
                             @foreach (var item in Model.SubImages)
                             {
                                 var imagepath = "/images/" + item.Name;
-                                <li data-thumb="@imagepath" data-src="bala/ItemImage/1.jpg">
-                                <img src="@imagepath" width="290" class="bala/img-responsive img-auto" />
-                            </li>
+                                <li data-thumb="@imagepath" data-src="@imagepath">
+                                    <img src="@imagepath" width="290" class="bala/img-responsive img-auto" />
+                                </li>
                             }
 
                         </ul>
@@ -48,25 +82,27 @@
     }
 </style>
 <script type="text/javascript">
-    jQuery(document).ready(function () {
-        jQuery('#imageGallery').lightSlider({
-            gallery: true,
-            item: 1,
-            loop: true,
-            vertical: false,
-            verticalHeight: 295,
-            vThumbWidth: 50,
-            thumbItem: 8,
-            thumbMargin: 4,
-            slideMargin: 0,
-            enableDrag: false,
-            onSliderLoad: function (el) {
-                el.lightGallery({
-                    selector: '#imageGallery .lslide'
-                });
-            }
-        });
-    });
+
+    //$(document).ready(function () {
+    //    $('#imageGallery').lightSlider({
+    //        gallery: true,
+    //        item: 1,
+    //        loop: true,
+    //        vertical: false,
+    //        verticalHeight: 295,
+    //        vThumbWidth: 50,
+    //        thumbItem: 8,
+    //        thumbMargin: 4,
+    //        slideMargin: 0,
+    //        enableDrag: false,
+    //        onSliderLoad: function (el) {
+    //            el.lightGallery({
+    //                selector: '#imageGallery .lslide'
+    //            });
+    //        }
+    //    });
+    //});
+
 </script>
 
 

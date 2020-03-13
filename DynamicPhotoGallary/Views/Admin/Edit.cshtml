@@ -4,51 +4,230 @@
     ViewBag.Title = "Gallery Edit Page";
 }
 
+<style>
+    .image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 5px 5px #2a2b2d;
+    }
 
-@using (Html.BeginForm("edit","admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    .sub-image {
+        width: 20%;
+        border: 10px solid #fff;
+        max-height: 185px;
+    }
+
+    .main-panel-row {
+        margin-top: 4%;
+    }
+
+    .customerdetail {
+        border-top: 1px dashed aliceblue;
+        border-left: 1px dashed aliceblue;
+        border-bottom: 1px dashed aliceblue;
+        padding: 2%;
+    }
+
+    .main-image {
+        padding: 2%;
+        border-top: 1px dashed aliceblue;
+        border-right: 1px dashed aliceblue;
+        border-bottom: 1px dashed aliceblue;
+    }
+
+    .customerdetail h3 {
+        text-align: center;
+        margin: 10%;
+        text-decoration: underline;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .customerdetail label {
+        width: 50%;
+        margin-left: 5%;
+        color: #fff;
+        font-size: 18px;
+    }
+
+    .customerdetail strong {
+        color: #fff;
+        font-size: 18px;
+    }
+
+    .customerdetail span {
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        padding-right: 2%;
+        float: right;
+        line-height: 25px;
+    }
+
+    .sub-panel {
+        margin-top: 2%;
+    }
+    .upload-area {
+        width: 50%;
+        margin: 30px auto;
+        height: 90px;
+    }
+    .upload-title {
+        font-size: 18px;
+        font-weight: 500;
+        text-transform: capitalize;
+        color: #fff;
+        width: 35%;
+        text-align: center;
+        float: left;
+    }
+    .upload-group {
+        width: 50%;
+        margin: auto;
+        float: left;
+    }
+    #browse {
+        cursor: pointer;
+        width: 40%;
+        float: left;
+        margin-left: 10%;
+    }
+    #imagename {
+        width: 30%;
+        float: left;
+        margin-left: 3%;
+        line-height: 35px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+</style>
+
+@using (Html.BeginForm("edit", "admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Image</h4>
-        <hr />
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-11">
+            <p>
+                <a class="back" href="@Url.Action("gallery","admin")">BACK</a>
+            </p>
+        </div>
+    </div>
+    <div class="main-panel">
+        <div class="row main-panel-row">
+            <div class="col-2"></div>
+            <div class="col-4 customerdetail">
+                <h3>Customer Detail</h3>
+                <div class="form-group">
+                    <p>
+                        <label>Customer Name <span>:</span></label>  <strong>@Model.Customer.Name</strong>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <label>Email <span>:</span></label> <strong>@Model.Customer.Email</strong>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <label>Contact Number <span>:</span></label> <strong>@Model.Customer.Phoneno</strong>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <label>Size <span>:</span></label> <strong>@Model.Customer.Size</strong>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <label>Pack <span>:</span></label> <strong>@Model.Customer.Pack</strong>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <label>File <span>:</span></label> <strong>@Model.Customer.Attach</strong>
+                    </p>
+                </div>
+            </div>
+            <div class="col-4 main-image">
+                <a href="/images/@Model.Name" data-lightbox='example-set' data-title-wthree="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
+                    <figure> <img src="/images/@Model.Name" alt=" " class="img-fluid"> </figure>
+                </a>
+                @*<img src="/images/@Model.Name" class="image" />*@
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    <div class="sub-panel">
+        <div class="row" style="max-height:185px;">
+            <div class="col-1"></div>
+            <div class="col-10" style="padding:0">
+
+                @*@if (Model.SubImages.Count > 0)
+                {
+                    foreach (var item in Model.SubImages.ToList())
+                    {
+                        <img class="img-thumbnail sub-image" src="/images/@item.Name" />
+                    }
+                }*@
+
+                <div id="admin-sub-image-gallery">
+                    @if (Model.SubImages.Count > 0)
+                    {
+                        foreach (var item in Model.SubImages.ToList())
+                        {
+                            <a href="/images/@item.Name">
+                                <img class="img-thumbnail sub-image" src="/images/@item.Name" />
+                            </a>                            
+                        }
+                    }
+                </div>
+
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <br />
+    <div class="form-horizontal">        
         @Html.ValidationSummary(true)
         @Html.HiddenFor(x => x.Id)
         @Html.HiddenFor(x => x.Customer.Name)
         @Html.HiddenFor(x => x.CustomerId)
         @Html.HiddenFor(x => x.Name)
-
-        <img src="/images/@Model.Name" />
-        <br />
-        <h6>Sub Images</h6>
-        <hr />
-        @if (Model.SubImages.Count > 0)
-        {
-            foreach (var item in Model.SubImages.ToList())
-            {
-                <img src="/images/@item.Name" />
-                <br />
-            }
-        }
-
-        <div class="hide">
-            <label>Choose file</label>
-            <input type="button" class="form-control" value="Browse" id="browse" style="cursor:pointer;width:50%;" />
-            <input class="form-control" type="file" accept="image/*" name="file" placeholder="" required style="display:none;">
-            @Html.ValidationMessage("file")
+        <div class="upload-area">
+            <label class="upload-title">Upload customer altered image</label>
+            <div class="upload-group">
+                <input type="button" class="form-control" value="Browse" id="browse" style="cursor:pointer;" />
+                <p id="imagename"></p>
+                <input class="form-control" type="file" accept="image/*" name="file" placeholder="" required style="display:none;">
+                @Html.ValidationMessage("file")
+            </div>            
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit" class="btn btn-default" />
+        <div class="form-group" style="width: 50%; margin: auto;">
+            <div class="col-md-offset-2 col-md-10" style="width: 50%; margin: auto;">
+                <input type="submit" value="Upload" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
+
+<script src="~/Scripts/jquery/dist/jquery.js"></script>
 <script>
     $(document).ready(function () {
         $('#browse').click(function () {
             $('input[name="file"]').trigger('click');
         });
+
+
+        $('input[name="file"]').on('change', function () {
+            var arr = $(this).val().split("\\");
+            $('#imagename').text(arr[arr.length - 1]);
+        })
+
     });
 </script>

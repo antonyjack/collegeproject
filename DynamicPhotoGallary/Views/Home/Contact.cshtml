@@ -88,8 +88,11 @@
                             <div class="form-group">
                                 <div class="hide">
                                     <label>Choose file</label>
-                                    <input type="button" class="form-control" value="Browse" id="browse" style="cursor:pointer;width:50%;" />
-                                    <input class="form-control" type="file" accept="image/*" name="file" placeholder="" required style="display:none;">
+                                    <div style="min-height:40px;">
+                                        <input type="button" class="form-control" value="Browse" id="browse" style="cursor:pointer;width:50%;float:left;margin-right:2%;" />
+                                        <p id="imagename" style="line-height:15px;padding-top:10px;margin-bottom:0;" ></p>
+                                    </div>
+                                    <input class="form-control" id="image" type="file" accept="image/*" name="file" placeholder="" required style="display:none;">
                                     @Html.ValidationMessage("file")
                                 </div>
                             </div>
@@ -130,7 +133,7 @@
         </div>
     </div>
 </section>
-
+<script src="~/Scripts/jquery/dist/jquery.js"></script>
 <script>
     $(document).ready(function () {
         var pack = "@Request.QueryString["pack"]";
@@ -141,5 +144,10 @@
         $('#browse').click(function () {
             $('input[name="file"]').trigger('click');            
         });
+
+        $('input[name="file"]').on('change', function () {
+            var arr = $(this).val().split("\\");
+            $('#imagename').text(arr[arr.length - 1]);
+        })
     });
 </script>

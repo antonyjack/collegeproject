@@ -29,5 +29,6 @@ namespace DynamicPhotoGallary.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<MainImage> MainImages { get; set; }
         public DbSet<SubImage> SubImages { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
     }
 }

@@ -97,7 +97,25 @@ namespace DynamicPhotoGallary.Controllers
 
         public ActionResult Pricing()
         {
-            return View();
+            using (var entities = new DB_WebgalleryEntities())
+            {
+                return View(entities.Feedbacks.OrderByDescending(x => x.Date).ToList());
+            }                
+        }
+
+        [HttpPost]
+        public ActionResult UpdateFeedback(Feedback model)
+        {
+            using (var entities = new DB_WebgalleryEntities())
+            {
+                if(model != null)
+                {
+                    model.Date = DateTime.Now;
+                    entities.Feedbacks.Add(model);
+                    entities.SaveChanges();
+                }
+                return Json(model.Date.ToString());
+            }
         }
 
         public ActionResult Picture(int id)

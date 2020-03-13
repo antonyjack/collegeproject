@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="DB_WebgalleryModel.SubImage" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="DB_WebgalleryModel.FK_MainImage_ImageId" ManuallyRouted="false" />
         <AssociationConnector Association="DB_WebgalleryModel.FK_MainImage_CustomerId" />
+        <EntityTypeShape EntityType="DB_WebgalleryModel.Feedback" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

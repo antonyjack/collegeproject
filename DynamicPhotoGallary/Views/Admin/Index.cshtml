@@ -4,35 +4,93 @@
     ViewBag.Title = "Admin Login Page";
 }
 
+<style>
+    .login-container {
+        width: 60%;
+        background-color: #0c70b4;
+        margin: 5% auto;
+        height: 300px;
+        border-radius: 20px;
+        box-shadow: 6px 6px #202c37;
+        color: #ffffff;
+    }
+    .admin-login {
+        border-right: 5px solid #177bbf;
+        padding: 40px;
+        text-align: center;
+    }
+    input[type="text"], input[type="password"] {
+        width: 75%;
+        border-radius: 5px;
+        height: 35px;
+        background-color: #efefef;
+    }
+    label {
+        text-transform: capitalize;
+        font-size: 18px;
+        font-weight: 510;
+        color: #efefef;
+    }
+    input[type="submit"] {
+        width: 250px;
+        font-size: 18px;
+        text-transform: uppercase;
+        box-shadow: 5px 5px #1e131370;
+        border-radius: 20px;
+        margin-top: 15px;
+    }
+    .form-group{
+        height: 90px;
+        margin-bottom: 0 !important;
+    }
+    .login-p {
+        font-size: 25px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #fff;
+        display: table-cell;
+        vertical-align: middle;
+        margin: 0;
+    }
+</style>
+
 @using (Html.BeginForm("Index","Admin", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Login</h4>
-        <hr />
-        @Html.ValidationSummary(true)
+    <div class="row login-container" style="width: 70%">
+        <div class="col-3 admin-login">
+            <p class="login-p">
+                Admin Login
+            </p>
+            <span>Admin user credentials secret. Don't share the user information.</span>
+        </div>
+        <div class="col-9">
+            <div class="form-horizontal" style="margin: 4% 3% auto 5%;">
+                @Html.ValidationSummary(true)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Username)
-                @Html.ValidationMessageFor(model => model.Username)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username, new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Username)
+                        @Html.ValidationMessageFor(model => model.Username)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Password)
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Login" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    </div>    
 }

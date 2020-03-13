@@ -1,7 +1,14 @@
-﻿@{
+﻿@model IEnumerable<DynamicPhotoGallary.Models.Feedback>
+@{
     ViewBag.Title = "Pricing";
 }
-
+<style>
+    .date-span {
+        float: right;
+        font-size: 13px;
+        line-height: 40px;
+    }
+</style>
 <section class="team-main text-center py-5 py-3">
     <!------------------ Hover Effect Style : Demo - 16 --------------->
     <div class="container">
@@ -108,7 +115,7 @@
                 <form action="#" method="post">
                     <div class="form-group">
                         <label class="my-2">Name</label>
-                        <input class="form-control" type="text" name="Name" placeholder="" required>
+                        <input class="form-control" type="text" id="name" name="Name" placeholder="">
                     </div>
 
                     <div class="form-group">
@@ -116,40 +123,88 @@
                         <textarea id="textarea" placeholder=""></textarea>
                     </div>
                     <div class="input-group1">
-                        <input class="form-control" type="submit" value="Submit">
+                        <input class="form-control" id="feedbackbtn" type="button" style="cursor:pointer;" value="Submit">
                     </div>
 
 
                 </form>
             </div>
         </div>
-        <div class="col-lg-6 main_grid_contact">
-            <div class="feedback">
-                <div class="form-group">
-                    <label class="my-2">balaji</label>
-                    <p>comments</p>
-                </div>
-                <div class="form-group">
-                    <label class="my-2">balaji</label>
-                    <p>comments</p>
-                </div>
-                <div class="form-group">
-                    <label class="my-2">balaji</label>
-                    <p>comments</p>
-                </div>
-                <div class="form-group">
-                    <label class="my-2">balaji</label>
-                    <p>comments</p>
-                </div>
-                <div class="form-group">
-                    <label class="my-2">balaji</label>
-                    <p>comments</p>
-                </div>
-                <div class="form-group">
-                    <label class="my-2">balaji</label>
-                    <p>comments</p>
+        @if (Model.Count() > 0)
+        {
+            <div class="col-lg-6 main_grid_contact">
+                <div class="feedback" id="feedbackP">
+                    @foreach (var item in Model)
+                    {
+                        <div class="form-group">
+                            <label class="my-2">@item.Name</label><span class="date-span">@item.Date.ToString()</span>
+                            <p>@item.Comment</p>
+                        </div>
+                    }
+
+                    @*<div class="form-group">
+            <label class="my-2">balaji</label>
+            <p>comments</p>
+        </div>
+        <div class="form-group">
+            <label class="my-2">balaji</label>
+            <p>comments</p>
+        </div>
+        <div class="form-group">
+            <label class="my-2">balaji</label>
+            <p>comments</p>
+        </div>
+        <div class="form-group">
+            <label class="my-2">balaji</label>
+            <p>comments</p>
+        </div>
+        <div class="form-group">
+            <label class="my-2">balaji</label>
+            <p>comments</p>
+        </div>
+        <div class="form-group">
+            <label class="my-2">balaji</label>
+            <p>comments</p>
+        </div>*@
+
                 </div>
             </div>
-        </div>
+        }
+
     </div>
 </div>
+<script src="~/Scripts/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#name').val('');
+        $('#textarea').val('');
+        $('#feedbackbtn').click(function () {
+            var name = $('#name').val();
+            var comment = $('#textarea').val();
+
+            if (name.trim() == '' || comment.trim() == '') {
+                alert("Name and Comment should not be empty.");
+            }
+            else {
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("UpdateFeedback","Home")',
+                    dataType: 'application/json',
+                    data: { 'Name': name, 'Comment': comment},
+                    complete: function (data) {                           
+                        var template = `<div class="form-group">
+                                            <label class="my-2">${name}</label> <span class='date-span'>${data.responseText.replace(/\"/g,"")}</span>
+                                            <p>${comment}</p>
+                                        </div>`;
+                        $('#feedbackP').prepend(template);
+                        $('#name').val('');
+                        $('#textarea').val('');
+                    },
+                    error: function (error) {
+                        //console.log(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
